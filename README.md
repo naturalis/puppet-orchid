@@ -14,7 +14,11 @@ This Puppet module was prepared for Ubuntu servers and was tested on Ubuntu
     puppet module install stankevich-python
 
 OrchID depends on the [ImgPheno][3] and [NBClassify][2] Python packages. These
-must be installed before proceeding.
+must be cloned before proceeding:
+
+    cd /opt/
+    git clone https://github.com/naturalis/imgpheno.git
+    git clone https://github.com/naturalis/nbclassify.git
 
 OrchID can be found in the [NBClassify][2] repository. For convenience, the
 repository also contains the Django site in the `html/` directory. On a
@@ -70,6 +74,8 @@ OrchID should now be accessible on the provided domain.
                       name of the directory containing the site's settings.py.
     $venv_path::      Specifies the path to the Python virtualenv directory where
                       all requirements will be installed.
+    $imgpheno::       Specifies the path to the ImgPheno package.
+    $nbclassify::     Specifies the path to the NBClassify package.
 
 [1]: https://puppetlabs.com/puppet/what-is-puppet
 [2]: https://github.com/naturalis/nbclassify
