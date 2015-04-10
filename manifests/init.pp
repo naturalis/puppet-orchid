@@ -182,6 +182,21 @@ class orchid (
         distribute   => true,
     }
 
+    python::pip {
+        'imgpheno':
+            require     => Python::Virtualenv[$venv_path],
+            pkgname     => 'imgpheno',
+            ensure      => present,
+            url         => $imgpheno,
+            virtualenv  => $venv_path;
+        'nbclassify':
+            require     => Python::Virtualenv[$venv_path],
+            pkgname     => 'nbclassify',
+            ensure      => present,
+            url         => $nbclassify,
+            virtualenv  => $venv_path;
+    }
+
     # Set up the virtual host.
     apache::vhost { $domain:
         require => [
