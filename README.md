@@ -38,14 +38,18 @@ Put the following code in a Puppet manifest (e.g. `orchid.pp` or `site.pp`):
     class { 'orchid' :
         domain => 'orchid.example.com',
         doc_root => '/var/www/orchid',
-        site_root => '/opt/orchid/html',
-        site_name => 'mysite',
-        venv_path => '/opt/orchid/html/env',
+        site_root => '/opt/nbclassify/html',
+        site_name => 'webapp',
+        venv_path => '/opt/nbclassify/html/env',
+        imgpheno => '/opt/imgpheno',
+        nbclassify => '/opt/nbclassify/nbclassify',
     }
 
 Change the arguments as required (see the list of parameters below). In the
-above example, `/opt/orchid/` is the location where the OrchID repository was
-cloned.
+above example, `/opt/nbclassify/` is the location where the NBClassify
+repository was cloned. Notice that the NBClassify package is not the root of
+that repository, but in a subdirectory `nbclassify`. ImgPheno was cloned to
+`/opt/imgpheno/`. The OrchID site is located at `/opt/nbclassify/html`.
 
 Finally, trigger the Puppet run as root:
 

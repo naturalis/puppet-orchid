@@ -15,6 +15,8 @@
 #                   name of the directory containing the site's settings.py.
 # $venv_path::      Specifies the path to the Python virtualenv directory where
 #                   all requirements will be installed.
+# $imgpheno::       Specifies the path to the ImgPheno package.
+# $nbclassify::     Specifies the path to the NBClassify package.
 #
 # == Requires:
 #
@@ -24,20 +26,24 @@
 #
 # == Sample Usage:
 #
-#   class {'orchid':
-#     domain => 'orchid.example.com',
-#     doc_root => '/var/www/orchid',
-#     site_root => '/opt/orchid/html',
-#     site_name => 'mysite',
-#     venv_path => '/opt/orchid/html/env',
+#   class { 'orchid' :
+#       domain => 'orchid.example.com',
+#       doc_root => '/var/www/orchid',
+#       site_root => '/opt/nbclassify/html',
+#       site_name => 'webapp',
+#       venv_path => '/opt/nbclassify/html/env',
+#       imgpheno => '/opt/imgpheno',
+#       nbclassify => '/opt/nbclassify/nbclassify',
 #   }
 #
 class orchid (
-        $domain = 'orchid.naturalis.nl',
+        $domain = 'orchid.example.com',
         $doc_root = '/var/www/orchid',
         $site_root,
         $site_name,
         $venv_path,
+        $imgpheno,
+        $nbclassify,
     ) {
 
     include apt
