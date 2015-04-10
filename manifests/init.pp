@@ -77,8 +77,10 @@ class orchid (
     # Ubuntu 14.04 comes with outdated versions of these packages. They will be
     # downloaded and compiled while setting up the Python virtualenv.
     apt::builddep {
-        'python-sklearn':;
-        'python-sorl-thumbnail':;
+        'python-sklearn':
+            require => Exec['apt_update'];
+        'python-sorl-thumbnail':
+            require => Exec['apt_update'];
     }
 
     # Install packages.
