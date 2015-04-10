@@ -59,6 +59,7 @@ class orchid (
     class {
         # Install Python and friends.
         'python':
+            require    => Exec['apt_update'],
             version    => 'system',
             pip        => true,
             dev        => true,
@@ -67,6 +68,7 @@ class orchid (
 
         # Install Apache.
         'apache':
+            require             => Exec['apt_update'],
             package_ensure      => present,
             default_vhost       => false,
             default_mods        => true,
