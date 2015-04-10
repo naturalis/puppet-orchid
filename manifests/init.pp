@@ -74,9 +74,31 @@ class orchid (
             purge_configs       => true;
     }
 
+    # Ubuntu 14.04 comes with outdated versions of these packages. They will be
+    # downloaded and compiled while setting up the Python virtualenv.
+    apt::builddep {
+        'python-sklearn':;
+        'python-sorl-thumbnail':;
+    }
+
     # Install packages.
     package {
         'python-numpy':
+            require => Exec['apt_update'],
+            ensure => present;
+        'python-opencv':
+            require => Exec['apt_update'],
+            ensure => present;
+        'python-pyfann':
+            require => Exec['apt_update'],
+            ensure => present;
+        'python-scipy':
+            require => Exec['apt_update'],
+            ensure => present;
+        'python-sklearn':
+            require => Exec['apt_update'],
+            ensure => present;
+        'python-sqlalchemy':
             require => Exec['apt_update'],
             ensure => present;
         'python-pil':
@@ -86,6 +108,9 @@ class orchid (
             require => Exec['apt_update'],
             ensure => present;
         'python-memcache':
+            require => Exec['apt_update'],
+            ensure => present;
+        'python-sorl-thumbnail':
             require => Exec['apt_update'],
             ensure => present;
     }
@@ -136,11 +161,19 @@ class orchid (
 
     # Setup the Python virtualenv for OrchID.
     python::virtualenv { $venv_path :
-        require      => [
+        require => [
+            Apt::Builddep['python-sklearn'],
+            Apt::Builddep['python-sorl-thumbnail'],
             Package['python-numpy'],
+            Package['python-opencv'],
+            Package['python-pyfann'],
+            Package['python-scipy'],
+            Package['python-sklearn'],
+            Package['python-sqlalchemy'],
             Package['python-pil'],
             Package['memcached'],
             Package['python-memcache'],
+            Package['python-sorl-thumbnail'],
         ],
         ensure       => present,
         version      => 'system',
