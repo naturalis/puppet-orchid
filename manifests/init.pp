@@ -46,7 +46,9 @@ class orchid (
         $nbclassify,
     ) {
 
-    include apt
+    class { 'apt':
+        always_apt_update => true,
+    }
 
     # Construct paths.
     $media_path = "${site_root}/media/"
@@ -57,7 +59,6 @@ class orchid (
     class {
         # Install Python and friends.
         'python':
-            require    => Exec['apt_update'],
             version    => 'system',
             pip        => true,
             dev        => true,
@@ -66,7 +67,6 @@ class orchid (
 
         # Install Apache.
         'apache':
-            require             => Exec['apt_update'],
             package_ensure      => present,
             default_vhost       => false,
             default_mods        => true,
@@ -77,43 +77,31 @@ class orchid (
     # Ubuntu 14.04 comes with outdated versions of these packages. They will be
     # downloaded and compiled while setting up the Python virtualenv.
     apt::builddep {
-        'python-sklearn':
-            require => Exec['apt_update'];
-        'python-sorl-thumbnail':
-            require => Exec['apt_update'];
+        'python-sklearn':;
+        'python-sorl-thumbnail':;
     }
 
     # Install packages.
     package {
         'python-numpy':
-            require => Exec['apt_update'],
             ensure => present;
         'python-opencv':
-            require => Exec['apt_update'],
             ensure => present;
         'python-pyfann':
-            require => Exec['apt_update'],
             ensure => present;
         'python-scipy':
-            require => Exec['apt_update'],
             ensure => present;
         'python-sklearn':
-            require => Exec['apt_update'],
             ensure => present;
         'python-sqlalchemy':
-            require => Exec['apt_update'],
             ensure => present;
         'python-pil':
-            require => Exec['apt_update'],
             ensure => present;
         'memcached':
-            require => Exec['apt_update'],
             ensure => present;
         'python-memcache':
-            require => Exec['apt_update'],
             ensure => present;
         'python-sorl-thumbnail':
-            require => Exec['apt_update'],
             ensure => present;
     }
 
