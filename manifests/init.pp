@@ -84,20 +84,28 @@ class orchid (
     # Install packages.
     package {
         'python-numpy':
+            require => Apt::Update,
             ensure => present;
         'python-opencv':
+            require => Apt::Update,
             ensure => present;
         'python-pyfann':
+            require => Apt::Update,
             ensure => present;
         'python-scipy':
+            require => Apt::Update,
             ensure => present;
         'python-sqlalchemy':
+            require => Apt::Update,
             ensure => present;
         'python-pil':
+            require => Apt::Update,
             ensure => present;
         'memcached':
+            require => Apt::Update,
             ensure => present;
         'python-memcache':
+            require => Apt::Update,
             ensure => present;
     }
 
