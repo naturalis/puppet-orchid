@@ -91,8 +91,6 @@ class orchid (
             ensure => present;
         'python-scipy':
             ensure => present;
-        'python-sklearn':
-            ensure => present;
         'python-sqlalchemy':
             ensure => present;
         'python-pil':
@@ -100,8 +98,6 @@ class orchid (
         'memcached':
             ensure => present;
         'python-memcache':
-            ensure => present;
-        'python-sorl-thumbnail':
             ensure => present;
     }
 
@@ -158,12 +154,10 @@ class orchid (
             Package['python-opencv'],
             Package['python-pyfann'],
             Package['python-scipy'],
-            Package['python-sklearn'],
             Package['python-sqlalchemy'],
             Package['python-pil'],
             Package['memcached'],
             Package['python-memcache'],
-            Package['python-sorl-thumbnail'],
         ],
         ensure       => present,
         version      => 'system',
