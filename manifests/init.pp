@@ -46,15 +46,18 @@ class orchid (
         $nbclassify,
     ) {
 
-    class { 'apt':
-        always_apt_update => true,
-    }
-
     # Construct paths.
     $media_path = "${site_root}/media/"
     $static_admin_path = "${site_root}/${site_name}/static/admin/"
     $static_rest_path = "${site_root}/${site_name}/static/rest_framework/"
     $static_path = "${site_root}/orchid/static/"
+
+    class { 'apt':
+        apt_update_frequency => always,
+    }
+
+    # Enable unattended upgrades.
+    class { 'apt::unattended_upgrades': }
 
     class {
         # Install Python and friends.
