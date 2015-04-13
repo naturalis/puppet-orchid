@@ -7,3 +7,8 @@ class { 'orchid' :
     imgpheno => '/opt/imgpheno',
     nbclassify => '/opt/nbclassify/nbclassify',
 }
+
+class { 'orchid::docs' :
+    sourcedir => '/opt/orchid/docs',
+    outdir => '/var/www/orchid/docs',
+}
