@@ -9,6 +9,6 @@ class { 'orchid' :
 }
 
 class { 'orchid::docs' :
-    sourcedir => '/opt/orchid/docs',
+    sourcedir => '/opt/nbclassify/nbclassify/docs',
     outdir => '/var/www/orchid/docs',
 }
