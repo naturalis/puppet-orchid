@@ -5,6 +5,10 @@ server for OrchID.
 
 ## Requirements
 
+**Note: on a fresh Ubuntu 14.04 LTS the HTTPS certificates may have gone out of
+sync with those of puppetlabs. Resolve this by doing an 
+`apt-get install ca-certificates` and restarting.** 
+
 This Puppet module was prepared for Ubuntu servers and was tested on Ubuntu
 14.04. First install Puppet and the required puppet modules as root:
 
