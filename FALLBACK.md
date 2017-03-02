@@ -7,6 +7,7 @@
 
 REBOOT
 
+    sudo su
     cd /opt
     git clone https://github.com/naturalis/nbclassify.git
     cd nbclassify/nbclassify
