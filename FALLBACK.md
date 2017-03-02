@@ -12,4 +12,6 @@ REBOOT
     git clone https://github.com/naturalis/nbclassify.git
     cd nbclassify/nbclassify
     pip install -r requirements.txt
+    cd ../html/orchid
+    pip install -r requirements.txt
     pip install https://github.com/naturalis/imgpheno/archive/master.zip
