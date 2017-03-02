@@ -1,8 +1,7 @@
 
     sudo su
-    apt-add-repository -y ppa:gijzelaar/opencv2.4
     apt-get update
-    apt-get install git build-essential ca-certificates 
+    apt-get install git build-essential ca-certificates libopencv-dev 
     apt-get install python-setuptools python-dev python-pip python-numpy python-opencv python-pyfann python-sklearn python-yaml 
     update-ca-certificates 
     cd /opt
