@@ -7,6 +7,5 @@
     cd /opt
     git clone https://github.com/naturalis/nbclassify.git
     cd nbclassify/nbclassify
-    easy_install pip==1.2.1 
     pip install -r requirements.txt
     pip install https://github.com/naturalis/imgpheno/archive/master.zip
