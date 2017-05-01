@@ -36,3 +36,6 @@
     cd nbclassify/nbclassify
     pip install -e .
 
+    # update PATH for unprivileged user
+    exit    
+    echo 'export PATH=$PATH:/opt/nbclassify/nbclassify/scripts/' >> ~/.profile
