@@ -1,17 +1,41 @@
 
     sudo su
     apt-get update
+    
+    # non-python pre-requisites
     apt-get install git build-essential ca-certificates libopencv-dev 
-    apt-get install python-setuptools python-dev python-pip python-numpy python-opencv python-pyfann python-sklearn python-yaml 
+    
+    # python packages
+    apt-get install \
+        python-setuptools \
+        python-dev \
+        python-pip \
+        python-numpy \
+        python-opencv \
+        python-pyfann \
+        python-sklearn \
+        python-yaml \
+        python-flickrapi \
+        python-scipy \
+        python-sqlalchemy \
+        python-django \
+        python-djangorestframework \
+        python-sorl-thumbnail
+    
+    # HTTPS certificates
     update-ca-certificates 
 
-REBOOT
-
-    sudo su
+    # install imgpheno as 'editable'. The general idea is that there
+    # could then be additional, truly editable installs elsewhere (i.e.
+    # owned by 'ubuntu' in its $HOME) that we prepend to the $PYTHONPATH
     cd /opt
+    git clone https://github.com/naturalis/imgpheno.git
+    cd imgpheno
+    pip install -e .
+    cd ../
+
+    # same thing for nbclassify
     git clone https://github.com/naturalis/nbclassify.git
     cd nbclassify/nbclassify
-    pip install -r requirements.txt
-    cd ../html/orchid
-    pip install -r requirements.txt
-    pip install https://github.com/naturalis/imgpheno/archive/master.zip
+    pip install -e .
+
