@@ -18,7 +18,7 @@ This Puppet module was prepared for Ubuntu servers and was tested on Ubuntu
     puppet module install stankevich-python
 
 OrchID depends on the [ImgPheno][3] and [NBClassify][2] Python packages. These
-must be cloned before proceeding:
+must be cloned (still as root) before proceeding:
 
     cd /opt/
     git clone https://github.com/naturalis/imgpheno.git
@@ -37,7 +37,11 @@ production server, make sure to change the following settings in
 ## Installation
 
 To install this Puppet module, clone this repository in `/etc/puppet/modules/`
-and rename the directory to "orchid" (i.e. `mv puppet-orchid orchid`).
+and rename the directory to "orchid":
+
+    cd /etc/puppet/modules/
+    git clone https://github.com/naturalis/puppet-orchid.git
+    mv puppet-orchid orchid
 
 ## Usage
 
