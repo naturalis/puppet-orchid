@@ -21,9 +21,6 @@
         python-django \
         python-djangorestframework \
         python-sorl-thumbnail
-    
-    # HTTPS certificates
-    update-ca-certificates 
 
     # install imgpheno as 'editable'. The general idea is that there
     # could then be additional, truly editable installs elsewhere (i.e.
