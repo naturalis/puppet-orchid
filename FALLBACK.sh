@@ -104,6 +104,7 @@ a2enmod wsgi
 # Download and enable virtual host
 cd /etc/apache2/sites-available && wget https://raw.githubusercontent.com/naturalis/puppet-orchid/master/orch-id.conf
 a2ensite orch-id
+service apache2 reload
 
 #############################################################################
 # Update PATH for unprivileged user
