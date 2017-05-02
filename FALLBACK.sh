@@ -54,17 +54,15 @@ pip install -e .
 #############################################################################
 # CONFIGURE APACHE2
 
-# Domain name
-domain='orch-id-dev.naturalis.nl'
-
-# XXX is this necessary?
-doc_root='/var/www/orchid'
+# Are these necessary?
+#domain='orch-id-dev.naturalis.nl'
+#doc_root='/var/www/orchid'
+#venv_path='/opt/nbclassify/html/env'
+#imgpheno='/opt/imgpheno'
+#nbclassify='/opt/nbclassify/nbclassify'
 
 # Basic locations
-imgpheno='/opt/imgpheno'
 site_root='/opt/nbclassify/html'
-venv_path='/opt/nbclassify/html/env'
-nbclassify='/opt/nbclassify/nbclassify'
 site_name='webapp'
 
 # Additional server paths
@@ -78,14 +76,12 @@ cd $site_root && python manage.py migrate
 chmod 'g+rw' "${site_root}/db.sqlite3"
 chgrp 'www-data' "${site_root}/db.sqlite3"
 
-# Make the doc root and media path
-for dir in "${doc_root} ${media_path}"; do
-    if [ ! -d "${dir}" ]; then
-        mkdir $dir
-        chown 'www-data' $dir
-        chgrp 'www-data' $dir
-    fi
-done
+# Make the media path (for uploads)
+if [ ! -d "${media_path}" ]; then
+    mkdir ${media_path}
+    chown 'www-data' ${media_path}
+    chgrp 'www-data' ${media_path}
+fi
 
 # Configure the site root
 chmod 'g+rwx' $site_root
@@ -94,14 +90,12 @@ if [ ! -d "${site_root}/${site_name}/static/" ]; then
     mkdir "${site_root}/${site_name}/static/"
 fi
 
-# XXX is this necessary?
+# Symlink static assets for admin and REST UI elements
 ln -s '/usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin' $static_admin_path
 ln -s '/usr/lib/python2.7/dist-packages/rest_framework/static/rest_framework' $static_rest_path
 
-# Enable wsgi
+# Set up wsgi and enable virtual host
 a2enmod wsgi
-
-# Download and enable virtual host
 cd /etc/apache2/sites-available && wget https://raw.githubusercontent.com/naturalis/puppet-orchid/master/orch-id.conf
 a2ensite orch-id
 service apache2 reload
