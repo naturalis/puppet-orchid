@@ -75,11 +75,10 @@ for dir in "${doc_root} ${media_path}"; do
     fi
 done
 
-# make the site root
-if [ ! -d "${site_root}" ]; then
-    mkdir $site_root
-    chmod 'g+rwx' $site_root
-    chgrp 'www-data' $site_root
+# configure the site root
+chmod 'g+rwx' $site_root
+chgrp 'www-data' $site_root
+if [ ! -d "${site_root}/${site_name}/static/" ]; then
     mkdir "${site_root}/${site_name}/static/"
 fi
 
