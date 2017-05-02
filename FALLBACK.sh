@@ -45,7 +45,43 @@ cd nbclassify/nbclassify
 pip install -e .
 
 #############################################################################
+# configure apache2
+# domain name and basic paths
+domain='orch-id-dev.naturalis.nl'
+doc_root='/var/www/orchid'
+site_root='/opt/nbclassify/html'
+site_name='webapp'
+venv_path='/opt/nbclassify/html/env'
+imgpheno='/opt/imgpheno'
+nbclassify='/opt/nbclassify/nbclassify'
 
+# additional server paths
+media_path="${site_root}/media/"
+static_admin_path="${site_root}/${site_name}/static/admin/"
+static_rest_path="${site_root}/${site_name}/static/rest_framework/"
+static_path="${site_root}/orchid/static/"
+
+# create the SQLite database for OrchID.
+cd $site_root && python manage.py migrate
+chmod 'g+rw' "${site_root}/db.sqlite3"
+chgrp 'www-data' "${site_root}/db.sqlite3"
+
+# make the doc root and media path
+for dir in "${doc_root} ${media_path}"; do
+    if [ ! -d "${dir}" ]; then
+        mkdir $dir
+        chown 'www-data' $dir
+        chgrp 'www-data' $dir
+    fi
+done
+
+# make the site root
+if [ ! -d "${site_root}" ]; then
+    mkdir $site_root
+    chmod 'g+rwx' $site_root
+    chgrp 'www-data' $site_root
+    mkdir "${site_root}/${site_name}/static/"
+fi
 
 #############################################################################
 # update PATH for unprivileged user
