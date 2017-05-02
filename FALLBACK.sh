@@ -4,13 +4,13 @@
 # step-by-step guide of what needs to happen to install all the pre-requisites
 # for naturalis/img-classify-all
 
-# all following steps need to be taken by root
+# All following steps need to be taken by root, to which we login here.
 sudo su
 
-# since we target Ubuntu 16.04LTS do as much as possible with apt-get
+# Since we target Ubuntu 16.04LTS we can use apt-get, which we refresh here.
 apt-get update
 
-# non-python pre-requisites
+# Install non-python pre-requisites
 apt-get install \
     git \
     build-essential \
@@ -20,7 +20,8 @@ apt-get install \
     libapache2-mod-wsgi
 
 #############################################################################
-# python packages
+# CONFIGURE PYTHON
+# Install python packages using apt-get. This means they are all system-wide.
 apt-get install \
     python-setuptools \
     python-dev \
@@ -37,42 +38,47 @@ apt-get install \
     python-djangorestframework \
     python-sorl-thumbnail
 
-# install imgpheno as 'editable'. The general idea is that this could
-# therefore be updated from github
+# Install imgpheno as 'editable'. The general idea is that this could
+# therefore be updated from github later on, with 'git pull'
 cd /opt
 git clone https://github.com/naturalis/imgpheno.git
 cd imgpheno
 pip install -e .
 cd ../
 
-# same thing for nbclassify
+# Same thing for nbclassify
 git clone https://github.com/naturalis/nbclassify.git
 cd nbclassify/nbclassify
 pip install -e .
 
 #############################################################################
-# configure apache2
-# domain name and basic paths
-domain='orch-id-dev.naturalis.nl'
-doc_root='/var/www/orchid'
-site_root='/opt/nbclassify/html'
-site_name='webapp'
-venv_path='/opt/nbclassify/html/env'
-imgpheno='/opt/imgpheno'
-nbclassify='/opt/nbclassify/nbclassify'
+# CONFIGURE APACHE2
 
-# additional server paths
+# Domain name
+domain='orch-id-dev.naturalis.nl'
+
+# XXX is this necessary?
+doc_root='/var/www/orchid'
+
+# Basic locations
+imgpheno='/opt/imgpheno'
+site_root='/opt/nbclassify/html'
+venv_path='/opt/nbclassify/html/env'
+nbclassify='/opt/nbclassify/nbclassify'
+site_name='webapp'
+
+# Additional server paths
 media_path="${site_root}/media/"
 static_admin_path="${site_root}/${site_name}/static/admin"
-static_rest_path="${site_root}/${site_name}/static/rest_framework/"
+static_rest_path="${site_root}/${site_name}/static/rest_framework"
 static_path="${site_root}/orchid/static/"
 
-# create the SQLite database for OrchID.
+# Create the SQLite database for OrchID.
 cd $site_root && python manage.py migrate
 chmod 'g+rw' "${site_root}/db.sqlite3"
 chgrp 'www-data' "${site_root}/db.sqlite3"
 
-# make the doc root and media path
+# Make the doc root and media path
 for dir in "${doc_root} ${media_path}"; do
     if [ ! -d "${dir}" ]; then
         mkdir $dir
@@ -81,21 +87,25 @@ for dir in "${doc_root} ${media_path}"; do
     fi
 done
 
-# configure the site root
+# Configure the site root
 chmod 'g+rwx' $site_root
 chgrp 'www-data' $site_root
 if [ ! -d "${site_root}/${site_name}/static/" ]; then
     mkdir "${site_root}/${site_name}/static/"
 fi
 
-# make symlinks
+# XXX is this necessary?
 ln -s '/usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin' $static_admin_path
 ln -s '/usr/lib/python2.7/dist-packages/rest_framework/static/rest_framework' $static_rest_path
 
-# enable wsgi
+# Enable wsgi
 a2enmod wsgi
 
+# Download and enable virtual host
+cd /etc/apache2/sites-available && wget https://raw.githubusercontent.com/naturalis/puppet-orchid/master/orch-id.conf
+a2ensite orch-id
+
 #############################################################################
-# update PATH for unprivileged user
+# Update PATH for unprivileged user
 exit    
 echo 'export PATH=$PATH:/opt/nbclassify/nbclassify/scripts/' >> ~/.profile
