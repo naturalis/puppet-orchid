@@ -57,7 +57,7 @@ nbclassify='/opt/nbclassify/nbclassify'
 
 # additional server paths
 media_path="${site_root}/media/"
-static_admin_path="${site_root}/${site_name}/static/admin/"
+static_admin_path="${site_root}/${site_name}/static/admin"
 static_rest_path="${site_root}/${site_name}/static/rest_framework/"
 static_path="${site_root}/orchid/static/"
 
@@ -81,6 +81,10 @@ chgrp 'www-data' $site_root
 if [ ! -d "${site_root}/${site_name}/static/" ]; then
     mkdir "${site_root}/${site_name}/static/"
 fi
+
+# make symlinks
+ln -s '/usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin' $static_admin_path
+ln -s '/usr/lib/python2.7/dist-packages/rest_framework/static/rest_framework' $static_rest_path
 
 #############################################################################
 # update PATH for unprivileged user
