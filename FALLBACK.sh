@@ -54,13 +54,6 @@ pip install -e .
 #############################################################################
 # CONFIGURE APACHE2
 
-# Are these necessary?
-#domain='orch-id-dev.naturalis.nl'
-#doc_root='/var/www/orchid'
-#venv_path='/opt/nbclassify/html/env'
-#imgpheno='/opt/imgpheno'
-#nbclassify='/opt/nbclassify/nbclassify'
-
 # Basic locations
 site_root='/opt/nbclassify/html'
 site_name='webapp'
