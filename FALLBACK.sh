@@ -98,6 +98,7 @@ ln -s '/usr/lib/python2.7/dist-packages/rest_framework/static/rest_framework' $s
 a2enmod wsgi
 cd /etc/apache2/sites-available && wget https://raw.githubusercontent.com/naturalis/puppet-orchid/master/orch-id.conf
 a2ensite orch-id
+a2dissite 000-default
 service apache2 reload
 
 #############################################################################
