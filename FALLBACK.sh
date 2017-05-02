@@ -92,6 +92,9 @@ fi
 ln -s '/usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin' $static_admin_path
 ln -s '/usr/lib/python2.7/dist-packages/rest_framework/static/rest_framework' $static_rest_path
 
+# enable wsgi
+a2enmod wsgi
+
 #############################################################################
 # update PATH for unprivileged user
 exit    
