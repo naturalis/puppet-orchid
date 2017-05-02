@@ -22,9 +22,8 @@
         python-djangorestframework \
         python-sorl-thumbnail
 
-    # install imgpheno as 'editable'. The general idea is that there
-    # could then be additional, truly editable installs elsewhere (i.e.
-    # owned by 'ubuntu' in its $HOME) that we prepend to the $PYTHONPATH
+    # install imgpheno as 'editable'. The general idea is that this could
+    # therefore be updated from github
     cd /opt
     git clone https://github.com/naturalis/imgpheno.git
     cd imgpheno
