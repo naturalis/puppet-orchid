@@ -11,7 +11,13 @@ sudo su
 apt-get update
 
 # non-python pre-requisites
-apt-get install git build-essential ca-certificates libopencv-dev apache2
+apt-get install \
+    git \
+    build-essential \
+    ca-certificates \
+    libopencv-dev \
+    apache2 \
+    libapache2-mod-wsgi
 
 #############################################################################
 # python packages
