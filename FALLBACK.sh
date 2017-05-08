@@ -19,7 +19,8 @@ apt-get install \
     ca-certificates \
     libopencv-dev \
     apache2 \
-    libapache2-mod-wsgi
+    libapache2-mod-wsgi \
+    memcached
     
 #############################################################################
 # CONFIGURE OpenCV
@@ -92,7 +93,9 @@ apt-get install \
     python-sqlalchemy \
     python-django \
     python-djangorestframework \
-    python-sorl-thumbnail
+    python-sorl-thumbnail \
+    python-memcache \
+    python-pil
 
 # Install imgpheno as 'editable'. The general idea is that this could
 # therefore be updated from github later on, with 'git pull'
