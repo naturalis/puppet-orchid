@@ -11,7 +11,7 @@ sudo su
 apt-get update
 
 # Install non-python pre-requisites
-apt-get install \
+apt-get -y install \
     git \
     build-essential \
     cmake \
@@ -21,66 +21,11 @@ apt-get install \
     apache2 \
     libapache2-mod-wsgi \
     memcached
-    
-#############################################################################
-# CONFIGURE OpenCV
-# Install image format libraries
-apt-get install \
-    libjpeg8-dev \
-    libtiff5-dev \
-    libjasper-dev \
-    libpng12-dev
-
-# Install libraries for video streams
-apt-get install \
-    libavcodec-dev \
-    libavformat-dev \
-    libswscale-dev \
-    libv4l-dev
-
-# Install libraries to access frames from cameras
-apt-get install \
-    libxvidcore-dev \
-    libx264-dev
-
-# Install GTK in case we're building GUI widgets in OpenCV (probably not)
-apt-get install libgtk-3-dev
-
-# Install processing libraries, e.g. for matrix operations
-apt-get install libatlas-base-dev gfortran
-
-# Install python headers and libraries, for compiling and linking
-apt-get install python2.7-dev
-
-# Download OpenCV source
-cd /opt
-wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.1.0.zip
-apt-get install unzip
-unzip opencv.zip
-
-# Download OpenCV contrib source, for additional features (e.g. SURF)
-wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.1.0.zip
-unzip opencv_contrib.zip
-
-# Compile OpenCV
-cd opencv-3.1.0/
-mkdir build
-cd build
-cmake -D CMAKE_BUILD_TYPE=RELEASE \
-    -D CMAKE_INSTALL_PREFIX=/usr \
-    -D INSTALL_PYTHON_EXAMPLES=ON \
-    -D INSTALL_C_EXAMPLES=OFF \
-    -D OPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-3.1.0/modules \
-    -D PYTHON_EXECUTABLE=/usr/bin/python \
-    -D BUILD_EXAMPLES=ON ..
-make -j4
-make install
-ldconfig
 
 #############################################################################
 # CONFIGURE PYTHON
 # Install python packages using apt-get. This means they are all system-wide.
-apt-get install \
+apt-get -y install \
     python-setuptools \
     python-dev \
     python-pip \
@@ -109,6 +54,61 @@ cd ../
 git clone https://github.com/naturalis/nbclassify.git
 cd nbclassify/nbclassify
 pip install -e .
+    
+#############################################################################
+# CONFIGURE OpenCV
+# Install image format libraries
+apt-get -y install \
+    libjpeg8-dev \
+    libtiff5-dev \
+    libjasper-dev \
+    libpng12-dev
+
+# Install libraries for video streams
+apt-get -y install \
+    libavcodec-dev \
+    libavformat-dev \
+    libswscale-dev \
+    libv4l-dev
+
+# Install libraries to access frames from cameras
+apt-get -y install \
+    libxvidcore-dev \
+    libx264-dev
+
+# Install GTK in case we're building GUI widgets in OpenCV (probably not)
+apt-get -y install libgtk-3-dev
+
+# Install processing libraries, e.g. for matrix operations
+apt-get -y install libatlas-base-dev gfortran
+
+# Install python headers and libraries, for compiling and linking
+apt-get -y install python2.7-dev
+
+# Download OpenCV source
+cd /opt
+wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.1.0.zip
+apt-get -y install unzip
+unzip opencv.zip
+
+# Download OpenCV contrib source, for additional features (e.g. SURF)
+wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.1.0.zip
+unzip opencv_contrib.zip
+
+# Compile OpenCV
+cd opencv-3.1.0/
+mkdir build
+cd build
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D INSTALL_PYTHON_EXAMPLES=ON \
+    -D INSTALL_C_EXAMPLES=OFF \
+    -D OPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-3.1.0/modules \
+    -D PYTHON_EXECUTABLE=/usr/bin/python \
+    -D BUILD_EXAMPLES=ON ..
+make -j4
+make install
+ldconfig
 
 #############################################################################
 # CONFIGURE APACHE2
