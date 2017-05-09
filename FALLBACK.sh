@@ -157,3 +157,7 @@ service apache2 reload
 # Update PATH for unprivileged user
 exit    
 echo 'export PATH=$PATH:/opt/nbclassify/nbclassify/scripts/' >> ~/.profile
+
+# copy over the OAuth token database for flickrapi
+mkdir ~/.flickr
+cp /opt/nbclassify/oauth-tokens.sqlite ~/.flickr/
